@@ -18,11 +18,12 @@ public class FTPServer {
     {
         ServerSocket serverSock = new ServerSocket(5521);
         System.out.println("FTP Server Started on Port: 5520");
-        System.out.println("Waiting For Connection ...");
+
 
         while(true)
         {
             try{
+                System.out.println("Waiting For Connection ...");
                 FTPThread transFile = new FTPThread(serverSock.accept());
                 System.out.println("Connection Recieved \n");
                 transFile.start();
