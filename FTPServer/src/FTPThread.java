@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class FTPThread extends Thread{
- Socket clientSock;
+    Socket serverSock;
     //DataInputStream dataIn;
     //DataOutputStream dataOut;
     DataOutputStream fileOut;
@@ -11,13 +11,13 @@ public class FTPThread extends Thread{
 
     FTPThread(Socket socket)
     {
-        clientSock = socket;
+        serverSock = socket;
      try
      {
         // dataIn = new DataInputStream(new BufferedInputStream(clientSock.getInputStream()));
         // dataOut = new DataOutputStream(new BufferedOutputStream(clientSock.getOutputStream()));
-         writeSock = new PrintWriter(clientSock.getOutputStream(),true);
-         command = new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
+         writeSock = new PrintWriter(serverSock.getOutputStream(),true);
+         command = new BufferedReader(new InputStreamReader(serverSock.getInputStream()));
      }
      catch(Exception except)
      {
@@ -135,7 +135,7 @@ public class FTPThread extends Thread{
        {
            File file = new File(sendFile);
            System.out.println("File Length: "+ (int) file.length());
-           DataOutputStream dataOut = new DataOutputStream(new BufferedOutputStream(clientSock.getOutputStream()));
+           DataOutputStream dataOut = new DataOutputStream(new BufferedOutputStream(serverSock.getOutputStream()));
            DataInputStream dataIn = new DataInputStream(new FileInputStream(file));
            byte[] data = new byte[1024];
            while ((dataIn.read(data)!=-1))
@@ -155,7 +155,7 @@ public class FTPThread extends Thread{
         try
         {
             fileOut = new DataOutputStream(( new FileOutputStream(receiveFile)));
-            DataInputStream dataIn = new DataInputStream(new BufferedInputStream(clientSock.getInputStream()));
+            DataInputStream dataIn = new DataInputStream(new BufferedInputStream(serverSock.getInputStream()));
             System.out.println("Recieving File: " + receiveFile);
             byte[] data = new byte[1024];
             while((dataIn.read(data)) !=-1)
