@@ -13,7 +13,7 @@ public class FTPServer {
         FTP.run();
 
     }
-    public enum command {GET, PUT};
+
     public void run() throws Exception
     {
         ServerSocket serverSock = new ServerSocket(5521);
@@ -27,9 +27,6 @@ public class FTPServer {
                 FTPThread transFile = new FTPThread(serverSock.accept());
                 System.out.println("Connection Recieved \n");
                 transFile.start();
-                System.out.println("File List Transfer");
-                transFile.listFiles();
-                transFile.option();
             }
             catch(Exception except)
             {
