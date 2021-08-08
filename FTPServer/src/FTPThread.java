@@ -142,9 +142,10 @@ public class FTPThread extends Thread{
            {
                dataOut.write(data,0,data.length);
            }
+           dataOut.write(-1);
            dataIn.close();
            dataOut.flush();
-           dataOut.close();
+           //dataOut.close();
            System.out.println("File " + sendFile +" Sent.");
        }
        catch(Exception exp)
